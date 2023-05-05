@@ -27,23 +27,13 @@ JSON:`, 400)
 function SUMP(range) {
   if (!range) return "Invalid range";
 
-  let entries = '';
-  let lastEntry = '';
+  const lastEntry = range[range.length-1][0];
+  const entries = JSON.stringify(range)
 
-  for (let row = 0; row < range.length; row++) {
-    if (row === range.length - 1) {
-      lastEntry = range[row][0];
-    } else {
-      entries += range[row][0];
-
-      if (row < range.length - 2) {
-        entries += '\n';
-      }
-    }
-  }
-  const answer = callGPTApi(`${entries} \n ${lastEntry}`,100 )
+  const answer = callGPTApi(`${entries} \n ${lastEntry}`,200 )
   return answer
 }
+
 
 function callGPTApi(prompt, maxTokens) {
   const temperature = 0.83;
